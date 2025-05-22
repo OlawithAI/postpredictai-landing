@@ -5,14 +5,52 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>PostPredictAI – Coming Soon</title>
 </head>
-<body style="font-family: sans-serif; background-color: #0d1117; color: #fff; display: flex; flex-direction: column; justify-content: center; align-items: center; height: 100vh; text-align: center;">
+<body style="font-family: sans-serif; background-color: #0d1117; color: #fff; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 2rem; min-height: 100vh;">
+
   <h1>🚧 PostPredictAI</h1>
   <p>We’re building something powerful. This site is in development mode.</p>
   <p style="margin-top: 20px; font-size: 0.9em;">Stay tuned. Official launch coming soon.</p>
+
+  <div style="margin-top: 3rem; max-width: 600px; width: 100%;">
+    <h2>🔮 Try our Prediction Engine (Beta)</h2>
+    <textarea id="post-input" rows="4" style="width: 100%; padding: 1rem; margin-top: 1rem;" placeholder="Paste your social media post here..."></textarea>
+    <br><br>
+    <button onclick="predictEngagement()" style="padding: 0.5rem 1rem; font-weight: bold;">Predict</button>
+    <pre id="result" style="background: #1e1e1e; padding: 1rem; margin-top: 1rem; text-align: left;"></pre>
+  </div>
+
+  <script>
+    async function predictEngagement() {
+      const postText = document.getElementById('post-input').value;
+
+      const response = await fetch('https://web-production-ab50.up.railway.app/api/predict', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ post: postText })
+      });
+
+      if (!response.ok) {
+        document.getElementById('result').innerText = "Error: " + response.statusText;
+        return;
+      }
+
+      const data = await response.json();
+
+      document.getElementById('result').innerText = `
+📊 Predicted Engagement Score: ${data?.predicted_score || 'N/A'}
+
+👍 Likes: ${data?.breakdown?.likes || 0}
+💬 Comments: ${data?.breakdown?.comments || 0}
+🔁 Shares: ${data?.breakdown?.shares || 0}
+⚠️ Suppression Risk: ${data?.suppression_risk || 'Unknown'}
+      `;
+    }
+  </script>
+
 </body>
 </html>
 
 
 
+Add prediction input to landing page
 
-initial landing page
