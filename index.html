@@ -46,10 +46,32 @@
       `;
     }
   </script>
+<!-- Facebook SDK for JavaScript -->
+<script>
+  window.fbAsyncInit = function() {
+    FB.init({
+      appId      : '2105332789940938', // PostPredictAI App ID
+      cookie     : true,
+      xfbml      : true,
+      version    : 'v22.0'
+    });
+
+    FB.AppEvents.logPageView();  // Automatically logs a pageview
+  };
+
+  (function(d, s, id){
+     var js, fjs = d.getElementsByTagName(s)[0];
+     if (d.getElementById(id)) return;
+     js = d.createElement(s); js.id = id;
+     js.src = "https://connect.facebook.net/en_US/sdk.js";
+     fjs.parentNode.insertBefore(js, fjs);
+   }(document, 'script', 'facebook-jssdk'));
+</script>
 
 </body>
 </html>
 
+Add Facebook SDK to enable app event tracking
 
 
 Add prediction input to landing page
