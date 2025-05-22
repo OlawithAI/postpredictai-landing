@@ -1,2 +1,2 @@
 # postpredictai-landing
-Coming soon page for PostPredictAI
+Coming soon page for PostPredictAI 
